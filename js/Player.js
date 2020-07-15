@@ -1,35 +1,34 @@
-class Player {
-  constructor(){
-    this.index = null;
-    this.distance = 0;
-    this.name = null;
-  }
+class Player{
+    constructor(){
+        this.index= null;
+        this.distance = 0;
+        this.name = null;
 
-  getCount(){
-    var playerCountRef = database.ref('playerCount');
-    playerCountRef.on("value",(data)=>{
+    }
+  playertoUpdate(){
+    var playeref =database.ref('playerCount');
+     playeref.on("value",(data)=>{
       playerCount = data.val();
-    })
-  }
+  })
+ }
+     playerupdate (count){
+         database.ref('/').update({
+         playerCount : count
+      })
+       }
+       update(){
+           var playerIndex = "players/player" + this.index;
+           database.ref(playerIndex).set({
+               name:this.name,
+               distance:this.distance
 
-  updateCount(count){
-    database.ref('/').update({
-      playerCount: count
-    });
-  }
+           })
+       }
+    static getPlayerinfo() {
+        var playerinforef = database.ref('players');
+        playerinforef.on("value",(data)=>{
+        allPlayers = data.val();
+        })
+    }  
 
-  update(){
-    var playerIndex = "players/player" + this.index;
-    database.ref(playerIndex).set({
-      name:this.name,
-      distance:this.distance
-    });
-  }
-
-  static getPlayerInfo(){
-    var playerInfoRef = database.ref('players');
-    playerInfoRef.on("value",(data)=>{
-      allPlayers = data.val();
-    })
-  }
 }

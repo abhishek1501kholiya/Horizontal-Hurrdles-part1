@@ -1,42 +1,51 @@
-var canvas, backgroundImage;
+var Canvas ;
 
+var jumper1 , jumper2 , jumper3 , jumper4 ;
+var Hurdle1;
+
+var playerCount = 0;
+var game;
+var form;
+var playername;
 var gameState = 0;
-var playerCount;
-var allPlayers;
-var distance = 0;
-var database;
+var ground;
+//var gameref;
+//var playeref;
+function setup (){
+Canvas = createCanvas(800,400);
 
-var form, player, game;
-
-var cars, car1, car2, car3, car4;
-var car1img , car2img , car3img , car4img;
-var trackimg;
-function preload(){
-car1img = loadImage("images/car1.png");
-car2img = loadImage("images/car2.png");
-car3img = loadImage("images/car3.png");
-car4img = loadImage("images/car4.png");
-trackimg = loadImage("images/track.png");
+playerCount = 0;
+player = new Player();
+game = new Game();
+form = new Form();
+jumper1 = new Jumper(200,340,20,80);
 }
-
-function setup(){
-  canvas = createCanvas(displayWidth - 20, displayHeight-30);
-  database = firebase.database();
-  game = new Game();
-  game.getState();
-  game.start();
-}
-
-
 function draw(){
-  if(playerCount === 4){
-    game.update(1);
-  }
-  if(gameState === 1){
-    clear();
-    game.play();
-  }
-  if(gameState===2){
-     game.end();
-  }
+background(255);
+if(gameState===0){
+ console.log(playerCount);
+  form.display();
 }
+if(playerCount===1){
+  form.hide();
+  console.log("working");
+gameState =1;
+}
+
+if(gameState===1){
+  ground = createSprite(200,200,5,100);
+  jumper1.display();
+  if(keyIsDown(UP_ARROW)){
+    jumper1.x = jumper1.x + 5;
+    jumper1.move(2);
+  }
+  if(keyIsDown(32)){
+    jumper1.y = jumper1.y - 5;
+  }
+ 
+  
+ }
+}
+
+
+
